@@ -30,10 +30,20 @@ ICommandHandler<PayOrder> payOrder, ICommandHandler<CancelOrder> cancelOrder, IQ
         [HttpPost("Order")]
         public async Task<IActionResult> CreateOrder(CreateOrder cmd) { await _createOrder.HandleAsync(cmd); return Accepted(); }
 
-        [HttpPost("orders/{orderId}/items")] public async Task<IActionResult> AddItem(Guid orderId, AddOrderItem cmd) { if (orderId != cmd.OrderId) return BadRequest(); await _addItem.HandleAsync(cmd); return Accepted(); }
-        [HttpPost("orders/{orderId}/place")] public async Task<IActionResult> PlaceOrder(Guid orderId, PlaceOrder cmd) { if (orderId != cmd.OrderId) return BadRequest(); await _placeOrder.HandleAsync(cmd); return Accepted(); }
-        [HttpPost("orders/{orderId}/pay")] public async Task<IActionResult> PayOrder(Guid orderId, PayOrder cmd) { if (orderId != cmd.OrderId) return BadRequest(); await _payOrder.HandleAsync(cmd); return Accepted(); }
-        [HttpPost("orders/{orderId}/cancel")] public async Task<IActionResult> CancelOrder(Guid orderId, CancelOrder cmd) { if (orderId != cmd.OrderId) return BadRequest(); await _cancelOrder.HandleAsync(cmd); return Accepted(); }
-        [HttpGet("orders/{id}")] public async Task<OrderDto> GetOrder(Guid id) => await _getOrder.HandleAsync(new GetOrderById(id));
+        [HttpPost("orders/items")] 
+        public async Task<IActionResult> AddItem([FromBody] AddOrderItem cmd) 
+        {
+                       
+            await _addItem.HandleAsync(cmd); return Accepted();
+        }
+        [HttpPost("orders/place")] 
+        public async Task<IActionResult> PlaceOrder([FromBody] PlaceOrder cmd)
+        { 
+             await _placeOrder.HandleAsync(cmd); return Accepted(); 
+        }
+        [HttpPost("orders/pay")] public async Task<IActionResult> PayOrder([FromBody] PayOrder cmd) {  await _payOrder.HandleAsync(cmd); return Accepted(); }
+        [HttpPost("orders/cancel")] public async Task<IActionResult> CancelOrder([FromBody] CancelOrder cmd) { await _cancelOrder.HandleAsync(cmd); return Accepted(); }
+        [HttpGet("orders/{id}")] 
+        public async Task<OrderDto> GetOrder([FromQuery] Guid id) => await _getOrder.HandleAsync(new GetOrderById(id));
     }
 }

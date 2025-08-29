@@ -29,8 +29,10 @@ namespace OrderManagementApp.Application.Commands
                 UnitPriceSnapshot = product.UnitPrice,
                 LineTotal = product.UnitPrice * command.Quantity
             };
-            order.Items.Add(item);
-            order.TotalAmount = order.Items.Sum(i => i.LineTotal);
+            //order.Items.Add(item);
+            //order.TotalAmount = order.Items.Sum(i => i.LineTotal);
+            _db.OrderItems.Add(item);
+            
             await _db.SaveChangesAsync(ct);
         }
     }
