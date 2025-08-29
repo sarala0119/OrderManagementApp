@@ -40,7 +40,7 @@ namespace OrderManagementApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("OrderManagementApp.Domain.Order", b =>
@@ -66,7 +66,7 @@ namespace OrderManagementApp.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("OrderManagementApp.Domain.OrderItem", b =>
@@ -98,7 +98,7 @@ namespace OrderManagementApp.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItems", (string)null);
                 });
 
             modelBuilder.Entity("OrderManagementApp.Domain.Product", b =>
@@ -124,7 +124,7 @@ namespace OrderManagementApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("OrderManagementApp.Domain.Order", b =>

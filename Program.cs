@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using OrderManagementApp.Application.Commands;
+using OrderManagementApp.Application.Queries;
+using OrderManagementApp.DTOs;
 using OrderManagementApp.Infrastructure;
 using static OrderManagementApp.Application.Abstractions.Cqrs;
 
@@ -21,6 +23,9 @@ builder.Services.AddTransient<ICommandHandler<AddOrderItem>, AddOrderItemHandler
 builder.Services.AddTransient<ICommandHandler<PlaceOrder>, PlaceOrderHandler>();
 builder.Services.AddTransient<ICommandHandler<PayOrder>, PayOrderHandler>();
 builder.Services.AddTransient<ICommandHandler<CancelOrder>, CancelOrderHandler>();
+
+builder.Services.AddTransient<IQueryHandler<GetOrderById, OrderDto>, GetOrderByIdHandler>();
+builder.Services.AddTransient<IQueryHandler<GetCustomerById, CustomerDto>, GetCustomerByIdHandler>();
 
 var app = builder.Build();
 
